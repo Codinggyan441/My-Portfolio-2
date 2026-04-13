@@ -1,0 +1,22 @@
+<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d0d1f"/>
+      <stop offset="100%" stop-color="#141428"/>
+    </linearGradient>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a78bff"/>
+      <stop offset="100%" stop-color="#00ddb4"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a78bff" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#00ddb4" stop-opacity="0.1"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="url(#bg)"/>
+  <circle cx="64" cy="64" r="52" fill="none" stroke="url(#g2)" stroke-width="1"/>
+  <circle cx="64" cy="64" r="44" fill="none" stroke="url(#g1)" stroke-width="1.5" stroke-dasharray="22 60" stroke-linecap="round"/>
+  <circle cx="64" cy="64" r="36" fill="url(#g2)"/>
+  <text x="64" y="78" text-anchor="middle" font-family="'Syne',sans-serif"
+        font-weight="800" font-size="34" fill="url(#g1)" letter-spacing="-1">SA</text>
+</svg>

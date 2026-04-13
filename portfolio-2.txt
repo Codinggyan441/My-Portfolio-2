@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smit Ahir — Frontend Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="./style.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <meta name="theme-color" content="#0d0d1f" />
+
+
+    <!--
+    ╔══════════════════════════════════════════════════════════════╗
+    ║   SMIT AHIR — PORTFOLIO SECTION                             ║
+    ║   Drop this entire <section> block into your website        ║
+    ║   Replace placeholder src="" with your actual image/video   ║
+    ╚══════════════════════════════════════════════════════════════╝
+
+    HOW TO ADD ITEMS:
+    ─────────────────
+    Each item uses: data-cat="poster|video|web|photo"
+                    data-size="sm|md|lg|xl|tall|wide"
+
+    Size classes:
+        sm   → 1 col  × 1 row  (small square)
+        md   → 1 col  × 1 row  (standard)
+        lg   → 2 cols × 1 row  (landscape wide)
+        xl   → 2 cols × 2 rows (large feature)
+        tall → 1 col  × 2 rows (portrait / vertical poster)
+        wide → 3 cols × 1 row  (ultra-wide banner)
+
+    For IMAGES:  set data-type="image"  and put <img src="..."> inside .pf-media
+    For VIDEOS:  set data-type="video"  and put <video src="..."> inside .pf-media
+                    OR set data-video-url="https://youtube-or-vimeo-embed-url"
+                    for YouTube/Vimeo embeds (opens in lightbox)
+-->
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Mono:wght@400;700&display=swap');
+
+        :root {
+            --bg: #080810;
+            --bg2: #0f0f1e;
+            --bg3: #13132a;
+            --purple: #a78bff;
+            --teal: #00ddb4;
+            --pink: #ff5080;
+            --text: #f0edff;
+            --muted: rgba(200, 190, 240, 0.5);
+            --border: rgba(120, 80, 255, 0.18);
+            --rad: 14px;
+            --rad-sm: 8px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ── SECTION SHELL ── */
+        #portfolio {
+            background: var(--bg2);
+            padding: 100px 48px;
+            font-family: 'Syne', sans-serif;
+            color: var(--text);
+        }
+
+        .pf-max {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ── HEADER ── */
+        .pf-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--teal);
+            margin-bottom: 10px;
+        }
+
+        .pf-title {
+            font-weight: 800;
+            font-size: clamp(28px, 4vw, 46px);
+            letter-spacing: -1.5px;
+            margin-bottom: 12px;
+        }
+
+        .pf-sub {
+            font-family: 'Space Mono', monospace;
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.8;
+            max-width: 480px;
+            margin-bottom: 40px;
+        }
+
+        /* ── FILTER TABS ── */
+        .pf-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 48px;
+        }
+
+        .pf-filter {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: 8px 20px;
+            border-radius: 99px;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--muted);
+            transition: all .25s;
+            user-select: none;
+        }
+
+        .pf-filter:hover {
+            color: var(--text);
+            border-color: rgba(120, 80, 255, .4);
+        }
+
+        .pf-filter.active {
+            background: linear-gradient(135deg, rgba(167, 139, 255, .15), rgba(0, 221, 180, .08));
+            border-color: rgba(167, 139, 255, .5);
+            color: var(--purple);
+        }
+
+        /* ── MASONRY GRID ── */
+        .pf-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 200px;
+            gap: 16px;
+        }
+
+        /* Size variants */
+        .pf-item[data-size="sm"] {
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+
+        .pf-item[data-size="md"] {
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+
+        .pf-item[data-size="lg"] {
+            grid-column: span 2;
+            grid-row: span 1;
+        }
+
+        .pf-item[data-size="xl"] {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .pf-item[data-size="tall"] {
+            grid-column: span 1;
+            grid-row: span 2;
+        }
+
+        .pf-item[data-size="wide"] {
+            grid-column: span 3;
+            grid-row: span 1;
+        }
+
+        /* ── ITEM CARD ── */
+        .pf-item {
+            border-radius: var(--rad);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--bg3);
+            cursor: pointer;
+            position: relative;
+            transition: transform .3s cubic-bezier(.22, 1, .36, 1),
+                border-color .3s, box-shadow .3s;
+        }
+
+        .pf-item:hover {
+            transform: translateY(-4px) scale(1.01);
+            border-color: rgba(120, 80, 255, .45);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .5);
+        }
+
+        .pf-item.hidden {
+            display: none;
+        }
+
+        /* ── MEDIA AREA ── */
+        .pf-media {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pf-media img,
+        .pf-media video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform .5s cubic-bezier(.22, 1, .36, 1);
+        }
+
+        .pf-item:hover .pf-media img,
+        .pf-item:hover .pf-media video {
+            transform: scale(1.06);
+        }
+
+        /* Placeholder when no media set */
+        .pf-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--bg3), var(--bg));
+        }
+
+        .pf-placeholder-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(120, 80, 255, .12);
+            border: 1px solid rgba(120, 80, 255, .25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pf-placeholder-icon svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .pf-placeholder span {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: rgba(120, 80, 255, .5);
+            letter-spacing: .1em;
+        }
+
+        /* ── OVERLAY ── */
+        .pf-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top,
+                    rgba(8, 8, 16, .92) 0%,
+                    rgba(8, 8, 16, .4) 50%,
+                    transparent 100%);
+            opacity: 0;
+            transition: opacity .3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+        }
+
+        .pf-item:hover .pf-overlay {
+            opacity: 1;
+        }
+
+        .pf-overlay-title {
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: -.2px;
+            margin-bottom: 4px;
+            color: var(--text);
+        }
+
+        .pf-overlay-sub {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: var(--muted);
+            margin-bottom: 12px;
+        }
+
+        .pf-overlay-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pf-chip {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            letter-spacing: .08em;
+            padding: 4px 12px;
+            border-radius: 99px;
+            border: 1px solid;
+        }
+
+        .pf-chip.poster {
+            border-color: rgba(167, 139, 255, .4);
+            color: var(--purple);
+            background: rgba(120, 80, 255, .1);
+        }
+
+        .pf-chip.video {
+            border-color: rgba(255, 80, 120, .4);
+            color: var(--pink);
+            background: rgba(255, 80, 120, .1);
+        }
+
+        .pf-chip.web {
+            border-color: rgba(0, 221, 180, .4);
+            color: var(--teal);
+            background: rgba(0, 221, 180, .1);
+        }
+
+        .pf-chip.photo {
+            border-color: rgba(250, 199, 117, .4);
+            color: #fac775;
+            background: rgba(250, 199, 117, .1);
+        }
+
+        /* Video play badge */
+        .pf-play-badge {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(8, 8, 16, .7);
+            border: 1.5px solid rgba(167, 139, 255, .5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform .3s, background .3s;
+            pointer-events: none;
+        }
+
+        .pf-item:hover .pf-play-badge {
+            transform: translate(-50%, -50%) scale(1.12);
+            background: rgba(120, 80, 255, .35);
+        }
+
+        .pf-play-badge svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--text);
+            margin-left: 3px;
+        }
+
+        /* ── LIGHTBOX ── */
+        #pf-lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #pf-lightbox.open {
+            display: flex;
+        }
+
+        .lb-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(4, 4, 12, .95);
+            cursor: pointer;
+        }
+
+        .lb-box {
+            position: relative;
+            z-index: 10;
+            max-width: min(1100px, 94vw);
+            width: 100%;
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .lb-media-wrap {
+            width: 100%;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-height: 75vh;
+            overflow: hidden;
+        }
+
+        .lb-media-wrap img {
+            max-width: 100%;
+            max-height: 75vh;
+            object-fit: contain;
+            display: block;
+        }
+
+        .lb-media-wrap video {
+            max-width: 100%;
+            max-height: 75vh;
+            display: block;
+        }
+
+        .lb-media-wrap iframe {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border: none;
+            display: block;
+        }
+
+        .lb-info {
+            padding: 20px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .lb-info-left h3 {
+            font-weight: 800;
+            font-size: 18px;
+            letter-spacing: -.3px;
+            margin-bottom: 4px;
+        }
+
+        .lb-info-left p {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .lb-close {
+            width: 38px;
+            height: 38px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: transparent;
+            cursor: pointer;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background .2s, color .2s;
+        }
+
+        .lb-close:hover {
+            background: rgba(120, 80, 255, .15);
+            color: var(--text);
+        }
+
+        .lb-close svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .lb-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(8, 8, 16, .7);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background .2s;
+            z-index: 11;
+        }
+
+        .lb-nav:hover {
+            background: rgba(120, 80, 255, .3);
+        }
+
+        .lb-nav svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .lb-prev {
+            left: 16px;
+        }
+
+        .lb-next {
+            right: 16px;
+        }
+
+        /* ── SEE MORE ── */
+        .pf-more-wrap {
+            text-align: center;
+            margin-top: 52px;
+        }
+
+        .pf-more-btn {
+            display: inline-block;
+            padding: 14px 44px;
+            border-radius: 99px;
+            border: 1px solid rgba(167, 139, 255, .35);
+            color: var(--purple);
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: .06em;
+            cursor: pointer;
+            background: transparent;
+            position: relative;
+            overflow: hidden;
+            transition: color .3s, box-shadow .3s, transform .2s;
+            text-decoration: none;
+        }
+
+        .pf-more-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--purple), var(--teal));
+            opacity: 0;
+            transition: opacity .3s;
+            border-radius: 99px;
+            z-index: 0;
+        }
+
+        .pf-more-btn:hover {
+            color: #080810;
+            box-shadow: 0 0 28px rgba(167, 139, 255, .4);
+            transform: scale(1.03);
+        }
+
+        .pf-more-btn:hover::before {
+            opacity: 1;
+        }
+
+        .pf-more-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .pf-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .pf-item[data-size="wide"] {
+                grid-column: span 3;
+            }
+        }
+
+        @media (max-width: 720px) {
+            #portfolio {
+                padding: 80px 20px;
+            }
+
+            .pf-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-auto-rows: 160px;
+            }
+
+            .pf-item[data-size="lg"],
+            .pf-item[data-size="xl"],
+            .pf-item[data-size="wide"] {
+                grid-column: span 2;
+            }
+
+            .pf-item[data-size="tall"] {
+                grid-row: span 2;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pf-grid {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 220px;
+            }
+
+            .pf-item[data-size] {
+                grid-column: span 1 !important;
+                grid-row: span 1 !important;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <nav>
+        <span onclick="window.location.href='../index.html#home';" style="cursor: pointer;" class="nav-logo">SA</span>
+        <div class="nav-links">
+            <a href="../index.html#home">Home</a>
+            <a href="../index.html#about">About</a>
+            <a href="../index.html#services">Services</a>
+            <a href="../index.html#portfolio">Portfolio</a>
+            <a href="../index.html#pricing">Pricing</a>
+            <a href="../index.html#contact">Contact</a>
+        </div>
+        <a href="#contact" class="nav-cta">Hire Me</a>
+    </nav>
+
+    <!-- ═══════════════════════════ PORTFOLIO SECTION ═══════════════════════════ -->
+    <section id="portfolio">
+        <div class="pf-max">
+
+            <!-- Header -->
+            <p class="pf-label">Portfolio</p>
+            <h2 class="pf-title">Latest Work</h2>
+            <p class="pf-sub">A collection of posters, videos, web designs and photography. Click any item to view full
+                size.</p>
+
+            <!-- Filter Tabs -->
+            <div class="pf-filters">
+                <button class="pf-filter active" data-filter="all">All</button>
+                <button class="pf-filter" data-filter="poster">Poster Design</button>
+                <button class="pf-filter" data-filter="video">Video / Reel</button>
+                <button class="pf-filter" data-filter="web">Web Design</button>
+            </div>
+
+            <!-- ════════════════════════════════════════════════════════════
+            GRID ITEMS — Edit below to add your own posters & videos
+            ════════════════════════════════════════════════════════════
+
+        COPY THIS TEMPLATE FOR EACH NEW ITEM:
+
+        <div class="pf-item" data-cat="poster" data-size="md" data-type="image"
+                data-title="Your Title" data-desc="Short description">
+            <div class="pf-media">
+                <img src="images/your-image.jpg" alt="Your Title" loading="lazy"/>
+            </div>
+        </div>
+
+        FOR VIDEOS (local file):
+            <div class="pf-item" data-cat="video" data-size="lg" data-type="video"
+                data-title="Reel Title" data-desc="Short description">
+                    <div class="pf-media">
+                        <video src="videos/your-reel.mp4" muted playsinline loop
+                            poster="images/video-thumb.jpg"></video>
+                </div>
+            </div>
+
+        FOR YOUTUBE / VIMEO:
+            <div class="pf-item" data-cat="video" data-size="lg" data-type="embed"
+                data-title="Reel Title" data-desc="Short description"
+                data-video-url="https://www.youtube.com/embed/VIDEO_ID">
+                <div class="pf-media">
+                    <img src="images/youtube-thumb.jpg" alt="Reel thumb" loading="lazy"/>
+                </div>
+            </div>
+    ═══════════════════════════════════════════════════════════════ -->
+
+            <div class="pf-grid" id="pf-grid">
+
+                <!-- ── POSTER items Start ── -->
+                <div class="pf-item" data-cat="poster" data-size="xl" data-type="image"
+                    data-title="Brand Identity Poster" data-desc="Logo + typography composition">
+                    <div class="pf-media">
+                        <img src="work/1.png" alt="Brand Identity Poster" loading="lazy" />
+                    </div>
+                </div>
+
+                <div class="pf-item" data-cat="poster" data-size="tall" data-type="image" data-title="Event Poster"
+                    data-desc="Vibrant event promotion design">
+                    <div class="pf-media">
+                        <img src="work/2.png" alt="Event Poster" loading="lazy" />
+                    </div>
+                </div>
+
+                <div class="pf-item" data-cat="poster" data-size="tall" data-type="image"
+                    data-title="Product Launch Poster" data-desc="Minimalist product campaign">
+                    <div class="pf-media">
+                        <img src="work/3.png" alt="Product Launch" loading="lazy" />
+                    </div>
+                </div>
+
+                <div class="pf-item" data-cat="poster" data-size="lg" data-type="image"
+                    data-title="Frozen Treat Branding" data-desc="Modern Card Design">
+                    <div class="pf-media">
+                        <img src="work/10.png" alt="Product Launch" loading="lazy" />
+                    </div>
+                </div>
+
+                <!-- ── POSTER items End ── -->
+
+                <!-- ── VIDEO items Start ── -->
+                <div class="pf-item" data-cat="video" data-size="lg" data-type="video" data-title="Brand Reel 2024"
+                    data-desc="30-second brand introduction">
+                    <div class="pf-media">
+                        <video src="work/4.mp4" muted playsinline loop poster="images/reel-1-thumb.jpg"></video>
+                    </div>
+                    <div class="pf-play-badge">
+                        <svg viewBox="0 0 24 24">
+                            <polygon points="5 3 19 12 5 21 5 3" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="pf-item" data-cat="video" data-size="tall" data-type="embed"
+                    data-title="Product Showcase Reel" data-desc="Vertical short-form video"
+                    data-video-url="https://www.youtube.com/embed/dQw4w9WgXcQ">
+                    <div class="pf-media">
+                        <video src="work/5.mp4" muted playsinline loop poster="images/reel-1-thumb.jpg"></video>
+                    </div>
+                    <div class="pf-play-badge">
+                        <svg viewBox="0 0 24 24">
+                            <polygon points="5 3 19 12 5 21 5 3" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="pf-item" data-cat="video" data-size="tall" data-type="video" data-title="Video Editing"
+                    data-desc="Product Making Video">
+                    <div class="pf-media">
+                        <video src="work/6.mp4" muted playsinline loop poster="images/motion-thumb.jpg"></video>
+                    </div>
+                    <div class="pf-play-badge">
+                        <svg viewBox="0 0 24 24">
+                            <polygon points="5 3 19 12 5 21 5 3" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="pf-item" data-cat="video" data-size="tall" data-type="embed"
+                    data-title="Product Showcase Reel" data-desc="Vertical short-form video"
+                    data-video-url="https://www.youtube.com/embed/dQw4w9WgXcQ">
+                    <div class="pf-media">
+                        <video src="work/18.mp4" muted playsinline loop></video>
+                    </div>
+                    <div class="pf-play-badge">
+                        <svg viewBox="0 0 24 24">
+                            <polygon points="5 3 19 12 5 21 5 3" />
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- ── VIDEO items End ── -->
+
+                <!-- ── POSTER items Start ── -->
+
+                <div class="pf-item" data-cat="poster" data-size="tall" data-type="image"
+                    data-title="Product Launch Poster" data-desc="Minimalist product campaign">
+                    <div class="pf-media">
+                        <img src="work/16.png" alt="Product Launch" loading="lazy" />
+                    </div>
+                </div>
+
+                <!-- ── POSTER items End ── -->
+
+
+                <!-- ── WEB DESIGN items Start ── -->
+                <div class="pf-item" data-cat="web" data-size="wide" data-type="image" data-title="E-Commerce Website"
+                    data-desc="Full responsive storefront UI">
+                    <div class="pf-media">
+                        <img src="work/17.png" alt="E-Commerce" loading="lazy" />
+                    </div>
+                </div>
+
+
+                <div class="pf-item" data-cat="web" data-size="tall" data-type="image" data-title="Dynamic Signup Interface"
+                    data-desc="Streamlined Account Creation">
+                    <div class="pf-media">
+                        <img src="work/19.png" alt="Dashboard" loading="lazy" />
+                    </div>
+                </div>
+
+
+                <div class="pf-item" data-cat="web" data-size="lg" data-type="image" data-title="Portfolio Website"
+                    data-desc="Personal developer portfolio">
+                    <div class="pf-media">
+                        <img src="work/9.png" alt="Portfolio" loading="lazy" />
+                    </div>
+                </div>
+
+                <div class="pf-item" data-cat="web" data-size="md" data-type="image" data-title="Business Website"
+                    data-desc="Hospital Website">
+                    <div class="pf-media">
+                        <img src="work/8.png" alt="Dashboard" loading="lazy" />
+                    </div>
+                </div>
+
+
+
+                <!-- ── Web Design items End ── -->
+
+            </div><!-- /pf-grid -->
+
+            <!-- See More -->
+            <div class="pf-more-wrap">
+                <a href="/portfolio/portfolio" class="pf-more-btn">
+                    <span>See More Work ↗</span>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════ LIGHTBOX ═══════════════════════════ -->
+    <div id="pf-lightbox">
+        <div class="lb-backdrop" id="lb-backdrop"></div>
+
+        <button class="lb-nav lb-prev" id="lb-prev">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15 18 9 12 15 6" />
+            </svg>
+        </button>
+        <button class="lb-nav lb-next" id="lb-next">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6" />
+            </svg>
+        </button>
+
+        <div class="lb-box">
+            <div class="lb-media-wrap" id="lb-media"></div>
+            <div class="lb-info">
+                <div class="lb-info-left">
+                    <h3 id="lb-title">Title</h3>
+                    <p id="lb-desc">Description</p>
+                </div>
+                <button class="lb-close" id="lb-close">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════ OVERLAY INJECTION ═══════════════════════════ -->
+    <script>
+        (function () {
+            /* ── Inject overlays into each card ── */
+            document.querySelectorAll('.pf-item').forEach(item => {
+                const cat = item.dataset.cat || 'poster';
+                const title = item.dataset.title || 'Untitled';
+                const desc = item.dataset.desc || '';
+
+                const overlay = document.createElement('div');
+                overlay.className = 'pf-overlay';
+                overlay.innerHTML = `
+                                    <div class="pf-overlay-title">${title}</div>
+                                    <div class="pf-overlay-sub">${desc}</div>
+                                    <div class="pf-overlay-meta">
+                                        <span class="pf-chip ${cat}">${cat}</span>
+                                    </div>
+                                `;
+                item.appendChild(overlay);
+            });
+
+            /* ── Filter logic ── */
+            const filters = document.querySelectorAll('.pf-filter');
+            const items = document.querySelectorAll('.pf-item');
+
+            filters.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filters.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const f = btn.dataset.filter;
+                    items.forEach(item => {
+                        const show = f === 'all' || item.dataset.cat === f;
+                        item.classList.toggle('hidden', !show);
+                    });
+                });
+            });
+
+            /* ── Video hover play/pause ── */
+            items.forEach(item => {
+                const vid = item.querySelector('video');
+                if (!vid) return;
+                item.addEventListener('mouseenter', () => vid.play().catch(() => { }));
+                item.addEventListener('mouseleave', () => { vid.pause(); vid.currentTime = 0; });
+            });
+
+            /* ── Lightbox ── */
+            const lb = document.getElementById('pf-lightbox');
+            const lbMedia = document.getElementById('lb-media');
+            const lbTitle = document.getElementById('lb-title');
+            const lbDesc = document.getElementById('lb-desc');
+            const lbClose = document.getElementById('lb-close');
+            const lbBack = document.getElementById('lb-backdrop');
+            const lbPrev = document.getElementById('lb-prev');
+            const lbNext = document.getElementById('lb-next');
+
+            let visibleItems = [];
+            let currentIdx = 0;
+
+            function getVisible() {
+                return [...document.querySelectorAll('.pf-item:not(.hidden)')];
+            }
+
+            function openLightbox(idx) {
+                visibleItems = getVisible();
+                currentIdx = idx;
+                renderLb();
+                lb.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeLightbox() {
+                lb.classList.remove('open');
+                document.body.style.overflow = '';
+                lbMedia.innerHTML = '';
+            }
+
+            function renderLb() {
+                const item = visibleItems[currentIdx];
+                const type = item.dataset.type || 'image';
+                const title = item.dataset.title || 'Untitled';
+                const desc = item.dataset.desc || '';
+                const vurl = item.dataset.videoUrl || '';
+
+                lbTitle.textContent = title;
+                lbDesc.textContent = desc;
+                lbMedia.innerHTML = '';
+
+                if (type === 'embed' && vurl) {
+                    const iframe = document.createElement('iframe');
+                    iframe.src = vurl + '?autoplay=1';
+                    iframe.allow = 'autoplay; fullscreen';
+                    lbMedia.appendChild(iframe);
+                } else if (type === 'video') {
+                    const vid = item.querySelector('video');
+                    if (vid) {
+                        const v2 = document.createElement('video');
+                        v2.src = vid.src;
+                        v2.controls = true;
+                        v2.autoplay = true;
+                        v2.style.maxWidth = '100%';
+                        v2.style.maxHeight = '75vh';
+                        lbMedia.appendChild(v2);
+                    }
+                } else {
+                    const img = item.querySelector('img');
+                    if (img) {
+                        const i2 = document.createElement('img');
+                        i2.src = img.src;
+                        i2.alt = title;
+                        lbMedia.appendChild(i2);
+                    }
+                }
+
+                lbPrev.style.display = currentIdx === 0 ? 'none' : 'flex';
+                lbNext.style.display = currentIdx === visibleItems.length - 1 ? 'none' : 'flex';
+            }
+
+            items.forEach((item, i) => {
+                item.addEventListener('click', () => {
+                    const vis = getVisible();
+                    const visIdx = vis.indexOf(item);
+                    if (visIdx !== -1) openLightbox(visIdx);
+                });
+            });
+
+            lbClose.addEventListener('click', closeLightbox);
+            lbBack.addEventListener('click', closeLightbox);
+            lbPrev.addEventListener('click', () => { if (currentIdx > 0) { currentIdx--; renderLb(); } });
+            lbNext.addEventListener('click', () => { if (currentIdx < visibleItems.length - 1) { currentIdx++; renderLb(); } });
+
+            document.addEventListener('keydown', e => {
+                if (!lb.classList.contains('open')) return;
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') { if (currentIdx > 0) { currentIdx--; renderLb(); } }
+                if (e.key === 'ArrowRight') { if (currentIdx < visibleItems.length - 1) { currentIdx++; renderLb(); } }
+            });
+        })();
+    </script>
+
+
+
+</body>
+
+</html>

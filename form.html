@@ -1,0 +1,1688 @@
+<!--
+╔══════════════════════════════════════════════════════════════════╗
+║   SMIT AHIR — UNIQUE CONTACT FORM  (Web3Forms)                 ║
+║   Multi-step · Animated · Sci-fi Dark Theme                    ║
+╠══════════════════════════════════════════════════════════════════╣
+║  SETUP (2 min):                                                 ║
+║  1. Go to https://web3forms.com                                ║
+║  2. Enter your email → Create Access Key                       ║
+║  3. Replace  YOUR_ACCESS_KEY_HERE  below                       ║
+╚══════════════════════════════════════════════════════════════════╝
+-->
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+
+    :root {
+        --bg: #080810;
+        --bg2: #0f0f1e;
+        --bg3: #13132a;
+        --bg4: #1c1c36;
+        --bg5: #22223e;
+        --purple: #a78bff;
+        --purp2: #7840ff;
+        --teal: #00ddb4;
+        --pink: #ff5080;
+        --text: #f0edff;
+        --muted: rgba(200, 190, 240, 0.5);
+        --muted2: rgba(200, 190, 240, 0.2);
+        --border: rgba(120, 80, 255, 0.2);
+        --bh: rgba(120, 80, 255, 0.5);
+        --rad: 16px;
+        --rad-sm: 10px;
+        --trans: cubic-bezier(.22, 1, .36, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0
+    }
+
+    /* ══ SECTION SHELL ══ */
+    #contact {
+        background: var(--bg);
+        padding: 110px 24px;
+        font-family: 'Syne', sans-serif;
+        color: var(--text);
+        position: relative;
+        overflow: hidden;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* ── BG grid ── */
+    .cf-grid-bg {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background-image:
+            linear-gradient(rgba(120, 80, 255, .05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(120, 80, 255, .05) 1px, transparent 1px);
+        background-size: 52px 52px;
+    }
+
+    /* ── floating particles ── */
+    .cf-particles {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden
+    }
+
+    .cf-particle {
+        position: absolute;
+        border-radius: 50%;
+        animation: floatP linear infinite;
+        opacity: 0;
+    }
+
+    @keyframes floatP {
+        0% {
+            transform: translateY(100vh) scale(0);
+            opacity: 0
+        }
+
+        10% {
+            opacity: 1
+        }
+
+        90% {
+            opacity: .5
+        }
+
+        100% {
+            transform: translateY(-10vh) scale(1.5);
+            opacity: 0
+        }
+    }
+
+    /* ── ambient orbs ── */
+    .cf-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(90px);
+        pointer-events: none
+    }
+
+    .cf-orb-1 {
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(120, 60, 255, .18), transparent 70%);
+        top: -150px;
+        right: -100px;
+        animation: orbF 8s ease-in-out infinite
+    }
+
+    .cf-orb-2 {
+        width: 380px;
+        height: 380px;
+        background: radial-gradient(circle, rgba(0, 180, 140, .12), transparent 70%);
+        bottom: -80px;
+        left: -80px;
+        animation: orbF 10s ease-in-out infinite;
+        animation-delay: -4s
+    }
+
+    @keyframes orbF {
+
+        0%,
+        100% {
+            transform: translateY(0) scale(1)
+        }
+
+        50% {
+            transform: translateY(-30px) scale(1.06)
+        }
+    }
+
+    /* ═══════════════════════════
+   FORM CONTAINER
+═══════════════════════════ */
+    .cf-wrap {
+        position: relative;
+        z-index: 10;
+        width: 100%;
+        max-width: 640px;
+    }
+
+    /* ── top label ── */
+    .cf-eyebrow {
+        font-family: 'Space Mono', monospace;
+        font-size: 11px;
+        letter-spacing: .22em;
+        text-transform: uppercase;
+        color: var(--teal);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .cf-eyebrow-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--teal);
+        animation: blink 1.4s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+
+        0%,
+        100% {
+            opacity: .3
+        }
+
+        50% {
+            opacity: 1
+        }
+    }
+
+    .cf-heading {
+        font-weight: 800;
+        font-size: clamp(32px, 5vw, 56px);
+        letter-spacing: -2px;
+        line-height: 1;
+        margin-bottom: 48px;
+    }
+
+    .cf-heading .g1 {
+        background: linear-gradient(135deg, var(--purple), var(--teal));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* ═══════════════════════════
+   STEP PROGRESS BAR
+═══════════════════════════ */
+    .cf-steps {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        margin-bottom: 40px;
+        position: relative;
+    }
+
+    .cf-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        flex: 1;
+        position: relative;
+        cursor: default;
+    }
+
+    /* connector line */
+    .cf-step:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        top: 18px;
+        left: 50%;
+        width: 100%;
+        height: 1px;
+        background: var(--border);
+        transition: background .5s;
+        z-index: 0;
+    }
+
+    .cf-step.done:not(:last-child)::after {
+        background: linear-gradient(90deg, var(--teal), var(--purple));
+    }
+
+    /* step circle */
+    .cf-step-num {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 1px solid var(--border);
+        background: var(--bg3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Space Mono', monospace;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--muted);
+        transition: all .4s var(--trans);
+        position: relative;
+        z-index: 1;
+    }
+
+    .cf-step.active .cf-step-num {
+        border-color: var(--purple);
+        background: rgba(120, 80, 255, .15);
+        color: var(--purple);
+        box-shadow: 0 0 0 4px rgba(120, 80, 255, .12);
+    }
+
+    .cf-step.done .cf-step-num {
+        border-color: var(--teal);
+        background: rgba(0, 221, 180, .12);
+        color: var(--teal);
+    }
+
+    .cf-step-label {
+        font-family: 'Space Mono', monospace;
+        font-size: 9px;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        color: var(--muted2);
+        transition: color .3s;
+        white-space: nowrap;
+    }
+
+    .cf-step.active .cf-step-label {
+        color: var(--purple)
+    }
+
+    .cf-step.done .cf-step-label {
+        color: var(--teal)
+    }
+
+    /* ═══════════════════════════
+   CARD
+═══════════════════════════ */
+    .cf-card {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: var(--rad);
+        overflow: hidden;
+        position: relative;
+    }
+
+    /* top accent line */
+    .cf-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--purp2), var(--purple), var(--teal));
+    }
+
+    .cf-card-inner {
+        padding: 40px 40px 32px
+    }
+
+    /* ── step panels ── */
+    .cf-panel {
+        display: none;
+        animation: panelIn .45s var(--trans);
+    }
+
+    .cf-panel.active {
+        display: block
+    }
+
+    @keyframes panelIn {
+        from {
+            opacity: 0;
+            transform: translateX(24px)
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0)
+        }
+    }
+
+    .cf-panel.back-anim {
+        animation: panelBack .45s var(--trans);
+    }
+
+    @keyframes panelBack {
+        from {
+            opacity: 0;
+            transform: translateX(-24px)
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0)
+        }
+    }
+
+    .cf-panel-title {
+        font-weight: 800;
+        font-size: 20px;
+        letter-spacing: -.4px;
+        margin-bottom: 6px;
+    }
+
+    .cf-panel-sub {
+        font-family: 'Space Mono', monospace;
+        font-size: 11px;
+        color: var(--muted);
+        margin-bottom: 28px;
+        line-height: 1.7;
+    }
+
+    /* ═══════════════════════════
+   FIELDS
+═══════════════════════════ */
+    .cf-fields {
+        display: flex;
+        flex-direction: column;
+        gap: 20px
+    }
+
+    .cf-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px
+    }
+
+    .cf-field {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        position: relative
+    }
+
+    .cf-field label {
+        font-family: 'Space Mono', monospace;
+        font-size: 10px;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+        color: var(--muted);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .cf-req {
+        color: var(--pink)
+    }
+
+    .cf-field input,
+    .cf-field select,
+    .cf-field textarea {
+        background: var(--bg3);
+        border: 1px solid rgba(120, 80, 255, .18);
+        border-radius: var(--rad-sm);
+        padding: 14px 16px;
+        font-family: 'Syne', sans-serif;
+        font-size: 14px;
+        color: var(--text);
+        outline: none;
+        width: 100%;
+        transition: border-color .25s, background .25s, box-shadow .25s;
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+    .cf-field input::placeholder,
+    .cf-field textarea::placeholder {
+        color: var(--muted2);
+        font-size: 13px
+    }
+
+    .cf-field select {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%23a78bff' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        padding-right: 40px;
+        cursor: pointer;
+    }
+
+    .cf-field select option {
+        background: var(--bg3);
+        color: var(--text)
+    }
+
+    .cf-field input:focus,
+    .cf-field select:focus,
+    .cf-field textarea:focus {
+        border-color: rgba(120, 80, 255, .6);
+        background: var(--bg4);
+        box-shadow: 0 0 0 3px rgba(120, 80, 255, .12);
+    }
+
+    .cf-field input.vld,
+    .cf-field select.vld,
+    .cf-field textarea.vld {
+        border-color: rgba(0, 221, 180, .4);
+    }
+
+    .cf-field input.err,
+    .cf-field select.err,
+    .cf-field textarea.err {
+        border-color: rgba(255, 80, 80, .5);
+        box-shadow: 0 0 0 3px rgba(255, 80, 80, .08);
+    }
+
+    .cf-field textarea {
+        height: 120px;
+        resize: vertical;
+        min-height: 90px;
+        max-height: 260px
+    }
+
+    /* tick icon */
+    .cf-tick {
+        position: absolute;
+        right: 13px;
+        top: 39px;
+        width: 16px;
+        height: 16px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity .25s;
+    }
+
+    .cf-tick svg {
+        width: 16px;
+        height: 16px;
+        stroke: var(--teal);
+        fill: none;
+        stroke-width: 2.5;
+        stroke-linecap: round;
+        stroke-linejoin: round
+    }
+
+    .cf-tick.on {
+        opacity: 1
+    }
+
+    /* error msg */
+    .cf-ferr {
+        font-family: 'Space Mono', monospace;
+        font-size: 10px;
+        color: #ff6060;
+        letter-spacing: .05em;
+        display: none;
+        align-items: center;
+        gap: 5px;
+        margin-top: -4px;
+    }
+
+    .cf-ferr.on {
+        display: flex
+    }
+
+    .cf-ferr svg {
+        width: 11px;
+        height: 11px;
+        stroke: #ff6060;
+        fill: none;
+        stroke-width: 2;
+        flex-shrink: 0
+    }
+
+    /* char count */
+    .cf-chars {
+        font-family: 'Space Mono', monospace;
+        font-size: 10px;
+        color: var(--muted2);
+        text-align: right;
+        margin-top: -12px;
+        transition: color .2s;
+    }
+
+    .cf-chars.warn {
+        color: var(--pink)
+    }
+
+    /* ── SERVICE CARDS (step 2) ── */
+    .cf-service-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .cf-svc {
+        border: 1px solid var(--border);
+        border-radius: var(--rad-sm);
+        padding: 16px 14px;
+        cursor: pointer;
+        background: var(--bg3);
+        transition: all .25s var(--trans);
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        user-select: none;
+    }
+
+    .cf-svc:hover {
+        border-color: rgba(120, 80, 255, .4);
+        background: var(--bg4)
+    }
+
+    .cf-svc.selected {
+        border-color: var(--purple);
+        background: rgba(120, 80, 255, .1);
+        box-shadow: 0 0 0 3px rgba(120, 80, 255, .1);
+    }
+
+    .cf-svc-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        flex-shrink: 0;
+        background: rgba(120, 80, 255, .1);
+        border: 1px solid rgba(120, 80, 255, .2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+        transition: background .25s;
+    }
+
+    .cf-svc.selected .cf-svc-icon {
+        background: rgba(120, 80, 255, .2);
+        border-color: rgba(120, 80, 255, .4)
+    }
+
+    .cf-svc-body {}
+
+    .cf-svc-name {
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: -.2px;
+        margin-bottom: 2px
+    }
+
+    .cf-svc-hint {
+        font-family: 'Space Mono', monospace;
+        font-size: 10px;
+        color: var(--muted)
+    }
+
+    .cf-svc-err {
+        font-family: 'Space Mono', monospace;
+        font-size: 10px;
+        color: #ff6060;
+        letter-spacing: .05em;
+        display: none;
+        align-items: center;
+        gap: 5px;
+        margin-top: 4px;
+    }
+
+    .cf-svc-err.on {
+        display: flex
+    }
+
+    /* ── BUDGET SLIDER (step 2) ── */
+    .cf-budget-wrap {
+        margin-top: 4px
+    }
+
+    .cf-budget-label {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .cf-budget-label span {
+        font-family: 'Space Mono', monospace;
+        font-size: 10px;
+        color: var(--muted);
+        letter-spacing: .1em;
+        text-transform: uppercase
+    }
+
+    .cf-budget-val {
+        font-family: 'Space Mono', monospace;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--purple);
+        letter-spacing: .04em;
+    }
+
+    input[type="range"].cf-slider {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100%;
+        height: 4px;
+        background: var(--bg4);
+        border: none;
+        border-radius: 99px;
+        outline: none;
+        cursor: pointer;
+        padding: 0;
+    }
+
+    input[type="range"].cf-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--purple), var(--teal));
+        cursor: pointer;
+        border: 2px solid var(--bg);
+        box-shadow: 0 0 0 3px rgba(120, 80, 255, .2);
+        transition: box-shadow .2s;
+    }
+
+    input[type="range"].cf-slider::-webkit-slider-thumb:hover {
+        box-shadow: 0 0 0 6px rgba(120, 80, 255, .2);
+    }
+
+    input[type="range"].cf-slider::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--purple), var(--teal));
+        cursor: pointer;
+        border: 2px solid var(--bg);
+    }
+
+    .cf-budget-ticks {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 8px;
+    }
+
+    .cf-budget-ticks span {
+        font-family: 'Space Mono', monospace;
+        font-size: 9px;
+        color: var(--muted2);
+        letter-spacing: .05em;
+    }
+
+    /* ═══════════════════════════
+   FOOTER / NAVIGATION
+═══════════════════════════ */
+    .cf-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 24px 40px;
+        border-top: 1px solid var(--border);
+        gap: 12px;
+    }
+
+    .cf-btn-back {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: 'Space Mono', monospace;
+        font-size: 11px;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 10px 0;
+        transition: color .2s;
+    }
+
+    .cf-btn-back:hover {
+        color: var(--text)
+    }
+
+    .cf-btn-back svg {
+        width: 14px;
+        height: 14px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round
+    }
+
+    .cf-btn-back:disabled {
+        opacity: .3;
+        pointer-events: none
+    }
+
+    .cf-btn-next {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 13px 32px;
+        border-radius: 99px;
+        border: none;
+        cursor: pointer;
+        font-family: 'Syne', sans-serif;
+        font-weight: 700;
+        font-size: 14px;
+        letter-spacing: .04em;
+        color: #080810;
+        background: linear-gradient(135deg, var(--purple), var(--teal));
+        transition: box-shadow .25s, transform .2s, opacity .2s;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cf-btn-next::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(255, 255, 255, .15), transparent);
+        opacity: 0;
+        transition: opacity .25s;
+    }
+
+    .cf-btn-next:hover::before {
+        opacity: 1
+    }
+
+    .cf-btn-next:hover:not(:disabled) {
+        box-shadow: 0 0 36px rgba(167, 139, 255, .5);
+        transform: translateY(-2px);
+    }
+
+    .cf-btn-next:disabled {
+        opacity: .5;
+        cursor: not-allowed;
+        transform: none
+    }
+
+    .cf-btn-next svg {
+        width: 15px;
+        height: 15px;
+        stroke: #080810;
+        fill: none;
+        stroke-width: 2.5;
+        stroke-linecap: round;
+        stroke-linejoin: round
+    }
+
+    .cf-btn-next.loading .cf-btn-label {
+        opacity: 0;
+        position: absolute
+    }
+
+    .cf-btn-next.loading .cf-btn-spin {
+        display: block
+    }
+
+    .cf-btn-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: opacity .15s
+    }
+
+    .cf-btn-spin {
+        display: none;
+        width: 18px;
+        height: 18px;
+        animation: rot 1s linear infinite;
+    }
+
+    @keyframes rot {
+        to {
+            transform: rotate(360deg)
+        }
+    }
+
+    /* step counter */
+    .cf-nav-step {
+        font-family: 'Space Mono', monospace;
+        font-size: 11px;
+        color: var(--muted2);
+        letter-spacing: .08em;
+    }
+
+    /* ═══════════════════════════
+   SUCCESS
+═══════════════════════════ */
+    .cf-done {
+        display: none;
+        padding: 60px 40px;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .cf-done.on {
+        display: flex
+    }
+
+    .cf-card.done .cf-card-inner {
+        display: none
+    }
+
+    .cf-card.done .cf-nav {
+        display: none
+    }
+
+    .cf-done-ring {
+        width: 88px;
+        height: 88px;
+        border-radius: 50%;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .cf-done-ring svg.ring {
+        position: absolute;
+        width: 88px;
+        height: 88px;
+        animation: spinR 6s linear infinite;
+    }
+
+    @keyframes spinR {
+        to {
+            transform: rotate(360deg)
+        }
+    }
+
+    .cf-done-ring svg.check {
+        width: 32px;
+        height: 32px;
+        stroke: var(--teal);
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        position: relative;
+        z-index: 1;
+        animation: popIn .5s .2s var(--trans) both;
+    }
+
+    @keyframes popIn {
+        from {
+            transform: scale(0);
+            opacity: 0
+        }
+
+        to {
+            transform: scale(1);
+            opacity: 1
+        }
+    }
+
+    .cf-done h3 {
+        font-weight: 800;
+        font-size: 26px;
+        letter-spacing: -.5px
+    }
+
+    .cf-done .cf-done-msg {
+        font-family: 'Space Mono', monospace;
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.9;
+        max-width: 320px;
+    }
+
+    .cf-done-detail {
+        font-family: 'Space Mono', monospace;
+        font-size: 11px;
+        color: var(--muted2);
+        line-height: 1.7;
+        background: var(--bg3);
+        border: 1px solid var(--border);
+        border-radius: var(--rad-sm);
+        padding: 16px 20px;
+        width: 100%;
+        text-align: left;
+    }
+
+    .cf-done-detail strong {
+        color: var(--purple);
+        font-weight: 700
+    }
+
+    .cf-btn-reset {
+        margin-top: 4px;
+        padding: 11px 28px;
+        border-radius: 99px;
+        border: 1px solid rgba(167, 139, 255, .3);
+        background: transparent;
+        color: var(--purple);
+        font-family: 'Syne', sans-serif;
+        font-weight: 700;
+        font-size: 13px;
+        cursor: pointer;
+        transition: background .2s;
+    }
+
+    .cf-btn-reset:hover {
+        background: rgba(167, 139, 255, .1)
+    }
+
+    /* ═══════════════════════════
+   TOAST
+═══════════════════════════ */
+    .cf-toasts {
+        position: fixed;
+        bottom: 28px;
+        right: 28px;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        pointer-events: none;
+    }
+
+    .cf-toast {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 14px 18px;
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: var(--rad);
+        max-width: 300px;
+        pointer-events: all;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, .6);
+        transform: translateX(110%);
+        opacity: 0;
+        transition: transform .4s var(--trans), opacity .4s;
+    }
+
+    .cf-toast.in {
+        transform: translateX(0);
+        opacity: 1
+    }
+
+    .cf-toast.out {
+        transform: translateX(110%);
+        opacity: 0
+    }
+
+    .cf-ti {
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center
+    }
+
+    .cf-ti svg {
+        width: 14px;
+        height: 14px;
+        stroke-width: 2.2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        fill: none
+    }
+
+    .cf-toast.ok .cf-ti {
+        background: rgba(0, 221, 180, .1);
+        border: 1px solid rgba(0, 221, 180, .2)
+    }
+
+    .cf-toast.ok .cf-ti svg {
+        stroke: var(--teal)
+    }
+
+    .cf-toast.fail .cf-ti {
+        background: rgba(255, 80, 80, .1);
+        border: 1px solid rgba(255, 80, 80, .2)
+    }
+
+    .cf-toast.fail .cf-ti svg {
+        stroke: #ff6060
+    }
+
+    .cf-toast-ttl {
+        font-family: 'Syne', sans-serif;
+        font-weight: 700;
+        font-size: 12px;
+        color: var(--text);
+        margin-bottom: 2px
+    }
+
+    .cf-toast-msg {
+        font-family: 'Space Mono', monospace;
+        font-size: 10px;
+        color: var(--muted);
+        line-height: 1.6
+    }
+
+    /* ═══════════════════════════
+   RESPONSIVE
+═══════════════════════════ */
+    @media(max-width:600px) {
+        #contact {
+            padding: 80px 16px
+        }
+
+        .cf-card-inner {
+            padding: 28px 22px
+        }
+
+        .cf-nav {
+            padding: 20px 22px
+        }
+
+        .cf-service-grid {
+            grid-template-columns: 1fr
+        }
+
+        .cf-row {
+            grid-template-columns: 1fr
+        }
+
+        .cf-toasts {
+            right: 12px;
+            left: 12px;
+            bottom: 12px
+        }
+
+        .cf-toast {
+            max-width: 100%
+        }
+
+        .cf-step-label {
+            display: none
+        }
+    }
+</style>
+
+<!-- ════════════════════════════════════════════════ -->
+<!--  CONTACT SECTION                               -->
+<!-- ════════════════════════════════════════════════ -->
+<section id="contact">
+
+    <!-- bg layers -->
+    <div class="cf-grid-bg"></div>
+    <div class="cf-particles" id="cf-particles"></div>
+    <div class="cf-orb cf-orb-1"></div>
+    <div class="cf-orb cf-orb-2"></div>
+
+    <div class="cf-wrap">
+
+        <!-- eyebrow + heading -->
+        <div class="cf-eyebrow">
+            <div class="cf-eyebrow-dot"></div>Contact
+        </div>
+        <h2 class="cf-heading">Let's Build<br><span class="g1">Something Great</span></h2>
+
+        <!-- step indicators -->
+        <div class="cf-steps" id="cf-steps">
+            <div class="cf-step active" data-step="1">
+                <div class="cf-step-num" id="sn-1">01</div>
+                <span class="cf-step-label">You</span>
+            </div>
+            <div class="cf-step" data-step="2">
+                <div class="cf-step-num" id="sn-2">02</div>
+                <span class="cf-step-label">Project</span>
+            </div>
+            <div class="cf-step" data-step="3">
+                <div class="cf-step-num" id="sn-3">03</div>
+                <span class="cf-step-label">Message</span>
+            </div>
+            <div class="cf-step" data-step="4">
+                <div class="cf-step-num" id="sn-4">04</div>
+                <span class="cf-step-label">Review</span>
+            </div>
+        </div>
+
+        <!-- card -->
+        <div class="cf-card" id="cf-card">
+
+            <!-- SUCCESS STATE -->
+            <div class="cf-done" id="cf-done">
+                <div class="cf-done-ring">
+                    <svg class="ring" viewBox="0 0 88 88" fill="none">
+                        <circle cx="44" cy="44" r="40" stroke="url(#rg)" stroke-width="1.5" stroke-dasharray="18 50"
+                            stroke-linecap="round" />
+                        <defs>
+                            <linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#a78bff" />
+                                <stop offset="100%" stop-color="#00ddb4" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <svg class="check" viewBox="0 0 24 24">
+                        <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                </div>
+                <h3>Message Sent!</h3>
+                <p class="cf-done-msg">Thanks for reaching out. I'll reply within 24 hours to your email.</p>
+                <div class="cf-done-detail" id="cf-done-detail">Loading summary…</div>
+                <button class="cf-btn-reset" id="cf-reset">Start Over</button>
+            </div>
+
+            <div id="cf-form-wrap">
+                <!--
+        ██████████████████████████████████████████████████
+        REPLACE  YOUR_ACCESS_KEY_HERE  with key from
+        https://web3forms.com → enter email → get key
+        ██████████████████████████████████████████████████
+        -->
+                <form id="cf-form" novalidate>
+                    <input type="hidden" name="access_key" value="f7d0f351-48c6-4821-9418-47d7d6aa0f95" />
+                    <input type="hidden" name="subject" value="New Project Inquiry — Smit Ahir Portfolio" />
+                    <input type="hidden" name="redirect" value="false" />
+                    <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" aria-hidden="true" />
+                    <input type="hidden" name="sent_time" id="cf-time" />
+                    <input type="hidden" name="service" id="cf-svc-val" />
+                    <input type="hidden" name="budget_range" id="cf-budget-val" />
+
+                    <!-- ═══ STEP 1: About You ═══ -->
+                    <div class="cf-panel active" id="panel-1">
+                        <div class="cf-card-inner">
+                            <div class="cf-panel-title">Tell me about you</div>
+                            <div class="cf-panel-sub">Who am I talking to? This helps me personalise my reply.</div>
+                            <div class="cf-fields">
+                                <div class="cf-row">
+                                    <div class="cf-field" id="f-name">
+                                        <label>Full Name <span class="cf-req">*</span></label>
+                                        <input type="text" name="name" id="cf-name" placeholder="Rahul Sharma"
+                                            autocomplete="name" required maxlength="80" />
+                                        <div class="cf-tick" id="tk-name"><svg viewBox="0 0 24 24">
+                                                <polyline points="20 6 9 17 4 12" />
+                                            </svg></div>
+                                        <span class="cf-ferr" id="fe-name"><svg viewBox="0 0 24 24">
+                                                <circle cx="12" cy="12" r="10" />
+                                                <line x1="12" y1="8" x2="12" y2="12" />
+                                                <line x1="12" y1="16" x2="12.01" y2="16" />
+                                            </svg>At least 2 characters.</span>
+                                    </div>
+                                    <div class="cf-field" id="f-email">
+                                        <label>Email Address <span class="cf-req">*</span></label>
+                                        <input type="email" name="email" id="cf-email" placeholder="rahul@gmail.com"
+                                            autocomplete="email" required maxlength="120" />
+                                        <div class="cf-tick" id="tk-email"><svg viewBox="0 0 24 24">
+                                                <polyline points="20 6 9 17 4 12" />
+                                            </svg></div>
+                                        <span class="cf-ferr" id="fe-email"><svg viewBox="0 0 24 24">
+                                                <circle cx="12" cy="12" r="10" />
+                                                <line x1="12" y1="8" x2="12" y2="12" />
+                                                <line x1="12" y1="16" x2="12.01" y2="16" />
+                                            </svg>Valid email required.</span>
+                                    </div>
+                                </div>
+                                <div class="cf-field" id="f-phone">
+                                    <label>Phone <span
+                                            style="color:var(--muted2);font-size:9px">(optional)</span></label>
+                                    <input type="tel" name="phone" id="cf-phone" placeholder="+91 98765 43210"
+                                        autocomplete="tel" maxlength="20" />
+                                </div>
+                                <div class="cf-field" id="f-company">
+                                    <label>Company / Brand <span
+                                            style="color:var(--muted2);font-size:9px">(optional)</span></label>
+                                    <input type="text" name="company" id="cf-company" placeholder="Your company name"
+                                        maxlength="80" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ═══ STEP 2: Project ═══ -->
+                    <div class="cf-panel" id="panel-2">
+                        <div class="cf-card-inner">
+                            <div class="cf-panel-title">What do you need?</div>
+                            <div class="cf-panel-sub">Pick a service and set your budget.</div>
+                            <div class="cf-fields">
+
+                                <!-- service cards -->
+                                <div>
+                                    <div class="cf-service-grid" id="cf-svc-grid">
+                                        <div class="cf-svc" data-val="Web Design">
+                                            <div class="cf-svc-icon">🌐</div>
+                                            <div class="cf-svc-body">
+                                                <div class="cf-svc-name">Web Design</div>
+                                                <div class="cf-svc-hint">Responsive websites</div>
+                                            </div>
+                                        </div>
+                                        <div class="cf-svc" data-val="Poster Design">
+                                            <div class="cf-svc-icon">🎨</div>
+                                            <div class="cf-svc-body">
+                                                <div class="cf-svc-name">Poster Design</div>
+                                                <div class="cf-svc-hint">Print & digital</div>
+                                            </div>
+                                        </div>
+                                        <div class="cf-svc" data-val="Video / Reel Editing">
+                                            <div class="cf-svc-icon">🎬</div>
+                                            <div class="cf-svc-body">
+                                                <div class="cf-svc-name">Video Editing</div>
+                                                <div class="cf-svc-hint">Reels & short-form</div>
+                                            </div>
+                                        </div>
+                                        <div class="cf-svc" data-val="UI/UX Design">
+                                            <div class="cf-svc-icon">✏️</div>
+                                            <div class="cf-svc-body">
+                                                <div class="cf-svc-name">UI/UX Design</div>
+                                                <div class="cf-svc-hint">Wireframes & UI</div>
+                                            </div>
+                                        </div>
+                                        <div class="cf-svc" data-val="Graphic Design">
+                                            <div class="cf-svc-icon">🖼️</div>
+                                            <div class="cf-svc-body">
+                                                <div class="cf-svc-name">Graphic Design</div>
+                                                <div class="cf-svc-hint">Brand identity</div>
+                                            </div>
+                                        </div>
+                                        <div class="cf-svc" data-val="SEO Marketing">
+                                            <div class="cf-svc-icon">🔍</div>
+                                            <div class="cf-svc-body">
+                                                <div class="cf-svc-name">SEO Marketing</div>
+                                                <div class="cf-svc-hint">Rank & grow</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="cf-svc-err" id="fe-svc"><svg viewBox="0 0 24 24" fill="none"
+                                            stroke="#ff6060" stroke-width="2" stroke-linecap="round">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <line x1="12" y1="8" x2="12" y2="12" />
+                                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                                        </svg>Please select a service.</span>
+                                </div>
+
+                                <!-- budget slider -->
+                                <div class="cf-field">
+                                    <label>Budget Range <span class="cf-req">*</span></label>
+                                    <div class="cf-budget-wrap">
+                                        <div class="cf-budget-label">
+                                            <span>Your budget</span>
+                                            <span class="cf-budget-val" id="cf-bval">₹5,000 – ₹15,000</span>
+                                        </div>
+                                        <input type="range" class="cf-slider" id="cf-slider" min="0" max="4" step="1"
+                                            value="1" />
+                                        <div class="cf-budget-ticks">
+                                            <span>₹5k</span><span>₹15k</span><span>₹30k</span><span>₹60k</span><span>₹60k+</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ═══ STEP 3: Message ═══ -->
+                    <div class="cf-panel" id="panel-3">
+                        <div class="cf-card-inner">
+                            <div class="cf-panel-title">Your message</div>
+                            <div class="cf-panel-sub">Describe your project in detail — timeline, references, goals.
+                            </div>
+                            <div class="cf-fields">
+                                <div class="cf-field" id="f-subject">
+                                    <label>Subject / Project Title <span class="cf-req">*</span></label>
+                                    <input type="text" name="subject_line" id="cf-subject"
+                                        placeholder="e.g. Landing page for my clothing brand" required
+                                        maxlength="120" />
+                                    <div class="cf-tick" id="tk-subject"><svg viewBox="0 0 24 24">
+                                            <polyline points="20 6 9 17 4 12" />
+                                        </svg></div>
+                                    <span class="cf-ferr" id="fe-subject"><svg viewBox="0 0 24 24">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <line x1="12" y1="8" x2="12" y2="12" />
+                                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                                        </svg>Please enter a subject.</span>
+                                </div>
+                                <div class="cf-field" id="f-msg">
+                                    <label>Message <span class="cf-req">*</span></label>
+                                    <textarea name="message" id="cf-msg"
+                                        placeholder="Tell me everything — what you need, your deadline, any inspiration or reference links…"
+                                        required maxlength="1200"></textarea>
+                                    <span class="cf-ferr" id="fe-msg"><svg viewBox="0 0 24 24">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <line x1="12" y1="8" x2="12" y2="12" />
+                                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                                        </svg>Write at least 20 characters.</span>
+                                </div>
+                                <div class="cf-chars" id="cf-chars">0 / 1200</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ═══ STEP 4: Review ═══ -->
+                    <div class="cf-panel" id="panel-4">
+                        <div class="cf-card-inner">
+                            <div class="cf-panel-title">Review & send</div>
+                            <div class="cf-panel-sub">Everything look good? Hit send and I'll be in touch.</div>
+                            <div id="cf-review" style="display:flex;flex-direction:column;gap:12px;"></div>
+                        </div>
+                    </div>
+
+                </form><!-- /cf-form -->
+            </div><!-- /cf-form-wrap -->
+
+            <!-- nav footer -->
+            <div class="cf-nav" id="cf-nav">
+                <button class="cf-btn-back" id="cf-back" disabled>
+                    <svg viewBox="0 0 24 24">
+                        <polyline points="15 18 9 12 15 6" />
+                    </svg>
+                    Back
+                </button>
+                <span class="cf-nav-step" id="cf-nav-step">Step 1 of 4</span>
+                <button class="cf-btn-next" id="cf-next">
+                    <span class="cf-btn-label">
+                        Next
+                        <svg viewBox="0 0 24 24">
+                            <polyline points="9 18 15 12 9 6" />
+                        </svg>
+                    </span>
+                    <svg class="cf-btn-spin" viewBox="0 0 24 24" fill="none" stroke="#080810" stroke-width="2.5">
+                        <circle cx="12" cy="12" r="10" stroke-opacity=".2" />
+                        <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round" />
+                    </svg>
+                </button>
+            </div>
+
+        </div><!-- /cf-card -->
+
+    </div><!-- /cf-wrap -->
+</section>
+
+<!-- toast container -->
+<div class="cf-toasts" id="cf-toasts"></div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!--  JAVASCRIPT                                    -->
+<!-- ════════════════════════════════════════════════ -->
+<script>
+    (function () {
+        'use strict';
+
+        /* ══ PARTICLES ══ */
+        var pc = document.getElementById('cf-particles');
+        var colors = ['rgba(120,80,255,', 'rgba(0,221,180,', 'rgba(255,80,120,'];
+        for (var i = 0; i < 28; i++) {
+            var p = document.createElement('div');
+            p.className = 'cf-particle';
+            var sz = Math.random() * 4 + 2;
+            var c = colors[Math.floor(Math.random() * colors.length)];
+            p.style.cssText =
+                'width:' + sz + 'px;height:' + sz + 'px;' +
+                'left:' + Math.random() * 100 + '%;' +
+                'background:' + c + '0.6);' +
+                'animation-duration:' + (Math.random() * 14 + 8) + 's;' +
+                'animation-delay:' + (-Math.random() * 14) + 's;';
+            pc.appendChild(p);
+        }
+
+        /* ══ BUDGET SLIDER ══ */
+        var budgetLabels = ['Under ₹5,000', '₹5,000 – ₹15,000', '₹15,000 – ₹30,000', '₹30,000 – ₹60,000', '₹60,000+'];
+        var slider = document.getElementById('cf-slider');
+        var bval = document.getElementById('cf-bval');
+        var bInput = document.getElementById('cf-budget-val');
+
+        function updateSlider() {
+            var v = parseInt(slider.value);
+            bval.textContent = budgetLabels[v];
+            bInput.value = budgetLabels[v];
+            /* gradient fill */
+            var pct = (v / 4) * 100;
+            slider.style.background =
+                'linear-gradient(90deg,#a78bff ' + pct + '%,#1c1c36 ' + pct + '%)';
+        }
+        slider.addEventListener('input', updateSlider);
+        updateSlider();
+
+        /* ══ SERVICE CARDS ══ */
+        var svcCards = document.querySelectorAll('.cf-svc');
+        var svcInput = document.getElementById('cf-svc-val');
+        var svcErr = document.getElementById('fe-svc');
+
+        svcCards.forEach(function (c) {
+            c.addEventListener('click', function () {
+                svcCards.forEach(function (x) { x.classList.remove('selected'); });
+                c.classList.add('selected');
+                svcInput.value = c.dataset.val;
+                svcErr.classList.remove('on');
+            });
+        });
+
+        /* ══ STEP LOGIC ══ */
+        var cur = 1;
+        var TOTAL = 4;
+        var panels = document.querySelectorAll('.cf-panel');
+        var steps = document.querySelectorAll('.cf-step');
+        var backBtn = document.getElementById('cf-back');
+        var nextBtn = document.getElementById('cf-next');
+        var navStep = document.getElementById('cf-nav-step');
+
+        /* ── helpers ── */
+        function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
+
+        function setField(id, errId, tickId, ok) {
+            var el = document.getElementById(id);
+            var err = document.getElementById(errId);
+            var tk = tickId ? document.getElementById(tickId) : null;
+            if (!el) return ok;
+            el.classList.toggle('vld', ok);
+            el.classList.toggle('err', !ok);
+            if (err) err.classList.toggle('on', !ok);
+            if (tk) tk.classList.toggle('on', ok);
+            return ok;
+        }
+
+        /* ── per-step validation ── */
+        function validateStep(n) {
+            if (n === 1) {
+                var nm = document.getElementById('cf-name').value.trim();
+                var em = document.getElementById('cf-email').value.trim();
+                var a = setField('cf-name', 'fe-name', 'tk-name', nm.length >= 2);
+                var b = setField('cf-email', 'fe-email', 'tk-email', isEmail(em));
+                return a && b;
+            }
+            if (n === 2) {
+                var hasSvc = svcInput.value !== '';
+                svcErr.classList.toggle('on', !hasSvc);
+                return hasSvc;
+            }
+            if (n === 3) {
+                var sb = document.getElementById('cf-subject').value.trim();
+                var mg = document.getElementById('cf-msg').value.trim();
+                var a = setField('cf-subject', 'fe-subject', 'tk-subject', sb.length >= 3);
+                var b = setField('cf-msg', 'fe-msg', null, mg.length >= 20);
+                return a && b;
+            }
+            return true;
+        }
+
+        /* ── update UI ── */
+        function setStep(n, dir) {
+            /* panels */
+            panels.forEach(function (p) { p.classList.remove('active', 'back-anim'); });
+            var target = document.getElementById('panel-' + n);
+            target.classList.add('active');
+            if (dir === 'back') target.classList.add('back-anim');
+
+            /* step indicators */
+            steps.forEach(function (s, i) {
+                s.classList.remove('active', 'done');
+                var sn = i + 1;
+                if (sn < n) s.classList.add('done');
+                if (sn === n) s.classList.add('active');
+                /* check icon in done steps */
+                var num = document.getElementById('sn-' + (i + 1));
+                if (sn < n) {
+                    num.innerHTML = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+                } else {
+                    num.innerHTML = (sn < 10 ? '0' : '') + sn;
+                }
+            });
+
+            navStep.textContent = 'Step ' + n + ' of ' + TOTAL;
+            backBtn.disabled = n === 1;
+
+            /* next btn label */
+            var lbl = nextBtn.querySelector('.cf-btn-label');
+            var ico = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#080810" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
+            if (n === 4) {
+                lbl.innerHTML = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#080810" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send Message';
+            } else {
+                lbl.innerHTML = 'Next ' + ico;
+            }
+
+            if (n === 4) buildReview();
+        }
+
+        /* ── build review ── */
+        function buildReview() {
+            var data = [
+                ['Name', document.getElementById('cf-name').value],
+                ['Email', document.getElementById('cf-email').value],
+                ['Phone', document.getElementById('cf-phone').value || '—'],
+                ['Company', document.getElementById('cf-company').value || '—'],
+                ['Service', svcInput.value],
+                ['Budget', bInput.value],
+                ['Subject', document.getElementById('cf-subject').value],
+                ['Message', document.getElementById('cf-msg').value],
+            ];
+            var html = '';
+            data.forEach(function (row) {
+                html +=
+                    '<div style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid rgba(120,80,255,.1)">' +
+                    '<span style="font-family:Space Mono,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(200,190,240,.4);min-width:72px;padding-top:2px">' + row[0] + '</span>' +
+                    '<span style="font-size:13px;color:#f0edff;word-break:break-word;white-space:pre-wrap;line-height:1.6">' +
+                    (row[1].length > 180 ? row[1].slice(0, 180) + '…' : row[1]) +
+                    '</span></div>';
+            });
+            document.getElementById('cf-review').innerHTML = html;
+        }
+
+        /* ══ NAVIGATION ══ */
+        nextBtn.addEventListener('click', function () {
+            if (nextBtn.classList.contains('loading')) return;
+            if (!validateStep(cur)) {
+                toast('fail', 'Fix the errors', 'Please complete all required fields.', 3500);
+                return;
+            }
+            if (cur < TOTAL) {
+                cur++;
+                setStep(cur, 'fwd');
+            } else {
+                submitForm();
+            }
+        });
+
+        backBtn.addEventListener('click', function () {
+            if (cur > 1) { cur--; setStep(cur, 'back'); }
+        });
+
+        /* ══ CHAR COUNTER ══ */
+        var msgEl = document.getElementById('cf-msg');
+        var chEl = document.getElementById('cf-chars');
+        msgEl.addEventListener('input', function () {
+            var n = msgEl.value.length;
+            chEl.textContent = n + ' / 1200';
+            chEl.classList.toggle('warn', n > 1100);
+        });
+
+        /* ══ INLINE REAL-TIME VALIDATION ══ */
+        function liveField(inputId, errId, tickId, checkFn) {
+            var el = document.getElementById(inputId);
+            if (!el) return;
+            ['blur', 'input'].forEach(function (ev) {
+                el.addEventListener(ev, function () {
+                    if (el.value !== '') setField(inputId, errId, tickId, checkFn(el.value.trim()));
+                });
+            });
+        }
+        liveField('cf-name', 'fe-name', 'tk-name', function (v) { return v.length >= 2 });
+        liveField('cf-email', 'fe-email', 'tk-email', function (v) { return isEmail(v) });
+        liveField('cf-subject', 'fe-subject', 'tk-subject', function (v) { return v.length >= 3 });
+        liveField('cf-msg', 'fe-msg', null, function (v) { return v.length >= 20 });
+
+        /* ══ SUBMIT ══ */
+        function submitForm() {
+            document.getElementById('cf-time').value =
+                new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) + ' IST';
+
+            nextBtn.disabled = true;
+            nextBtn.classList.add('loading');
+
+            var payload = {};
+            var fd = new FormData(document.getElementById('cf-form'));
+            fd.forEach(function (v, k) { payload[k] = v; });
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                body: JSON.stringify(payload)
+            })
+                .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+                .then(function (j) {
+                    nextBtn.disabled = false;
+                    nextBtn.classList.remove('loading');
+                    if (j.success) {
+                        showDone();
+                        toast('ok', 'Message sent! ✦', 'I\'ll reply within 24 hours.', 6000);
+                    } else {
+                        throw new Error(j.message || 'Failed');
+                    }
+                })
+                .catch(function (e) {
+                    nextBtn.disabled = false;
+                    nextBtn.classList.remove('loading');
+                    var msg = 'Something went wrong. Please email me directly.';
+                    if (e.message && e.message.indexOf('401') !== -1) msg = 'Invalid access key.';
+                    if (!navigator.onLine) msg = 'No internet connection.';
+                    toast('fail', 'Failed to Send', msg, 8000);
+                });
+        }
+
+        /* ══ SHOW DONE ══ */
+        function showDone() {
+            var card = document.getElementById('cf-card');
+            card.classList.add('done');
+            document.getElementById('cf-form-wrap').style.display = 'none';
+            document.getElementById('cf-nav').style.display = 'none';
+            var done = document.getElementById('cf-done');
+            done.classList.add('on');
+
+            var nm = document.getElementById('cf-name').value;
+            var em = document.getElementById('cf-email').value;
+            var svc = svcInput.value;
+            var bud = bInput.value;
+
+            document.getElementById('cf-done-detail').innerHTML =
+                '<strong>' + nm + '</strong> · ' + em + '<br>' + svc + ' · ' + bud;
+        }
+
+        /* ══ RESET ══ */
+        document.getElementById('cf-reset').addEventListener('click', function () {
+            document.getElementById('cf-form').reset();
+            updateSlider();
+            svcInput.value = '';
+            svcCards.forEach(function (c) { c.classList.remove('selected') });
+            chEl.textContent = '0 / 1200';
+            document.querySelectorAll('.cf-field input,.cf-field select,.cf-field textarea').forEach(function (el) {
+                el.classList.remove('vld', 'err');
+            });
+            document.querySelectorAll('.cf-tick').forEach(function (t) { t.classList.remove('on') });
+            document.querySelectorAll('.cf-ferr').forEach(function (e) { e.classList.remove('on') });
+            cur = 1;
+            var card = document.getElementById('cf-card');
+            card.classList.remove('done');
+            document.getElementById('cf-form-wrap').style.display = '';
+            document.getElementById('cf-nav').style.display = '';
+            document.getElementById('cf-done').classList.remove('on');
+            setStep(1, 'back');
+        });
+
+        /* ══ TOAST ══ */
+        var toastsEl = document.getElementById('cf-toasts');
+        function toast(type, title, msg, ms) {
+            ms = ms || 5000;
+            var icons = {
+                ok: '<polyline points="20 6 9 17 4 12"/>',
+                fail: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>'
+            };
+            var t = document.createElement('div');
+            t.className = 'cf-toast ' + type;
+            t.innerHTML =
+                '<div class="cf-ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + icons[type] + '</svg></div>' +
+                '<div><div class="cf-toast-ttl">' + title + '</div><div class="cf-toast-msg">' + msg + '</div></div>';
+            toastsEl.appendChild(t);
+            requestAnimationFrame(function () { requestAnimationFrame(function () { t.classList.add('in') }) });
+            setTimeout(function () {
+                t.classList.remove('in'); t.classList.add('out');
+                setTimeout(function () { t.remove() }, 500);
+            }, ms);
+        }
+
+        /* init */
+        setStep(1, 'fwd');
+
+    })();
+</script>
